@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>狼人杀 · 天黑请闭眼</title>
+<link rel="stylesheet" href="/static/app.css">
+<link rel="stylesheet" href="/static/werewolf.css">
+</head>
+<body class="wolf">
+<div class="night"></div>
+<div class="topbar">
+  <a class="brand" href="/">狼人杀</a>
+  <div class="sub" id="modeLabel">同机多人 · 身份隐藏</div>
+  <div class="spacer"></div>
+  <button class="icon-btn" id="rulesBtn">规则</button>
+  <button class="icon-btn" id="musicBtn">音乐 开</button>
+  <button class="icon-btn" id="quitBtn" hidden>退出本局</button>
+</div>
+
+<div id="setup" class="screen">
+  <div class="center setup">
+    <h1 class="hero-title" style="font-size:64px">天 黑 请 闭 眼</h1>
+    <input id="playerName" class="name-input" maxlength="10" value="你" aria-label="你的名字">
+    <h2 class="setup-q">几个真人？</h2>
+    <div id="counts" class="counts"></div>
+    <label class="exp-toggle"><input type="checkbox" id="multiSpeech"> 多发言实验档</label>
+    <div class="setup-actions">
+      <button class="btn ghost" id="backHome">返回</button>
+      <button class="btn ghost" id="aiOnly">纯 AI 旁观</button>
+      <button class="btn primary" id="startBtn">开始游戏</button>
+    </div>
+  </div>
+</div>
+
+<div id="game" class="wolf-wrap" hidden>
+  <div class="table">
+    <div class="phase" id="phase">第 1 天</div>
+    <div id="seats"></div>
+    <div class="speech" id="speech" hidden></div>
+    <div class="night-veil" id="nightVeil"></div>
+  </div>
+  <div class="wolf-foot">
+    <div class="event-log" id="log"></div>
+    <div class="spectator" id="spectator" hidden>
+      <button class="btn ghost" id="pauseBtn">暂停</button>
+      <button class="btn ghost" id="speedBtn">速度 0.5x</button>
+    </div>
+  </div>
+</div>
+
+<div id="handover" class="modal" hidden>
+  <div class="modal-card small">
+    <h1 id="handoverTitle">请把设备交给</h1>
+    <h2 id="handoverName"></h2>
+    <p>其他人请回避屏幕</p>
+    <button class="btn primary" id="readyBtn">我 准 备 好 了</button>
+  </div>
+</div>
+
+<div id="private" class="modal" hidden>
+  <div class="modal-card wide">
+    <div class="tabs" id="ptabs">
+      <button class="tab on" data-tab="info">身份 · 座位</button>
+      <button class="tab" data-tab="public" id="tabPublic">公开记录</button>
+    </div>
+    <div class="private-head">
+      <div class="private-left">
+        <div class="label">你的身份</div>
+        <h1 id="roleName"></h1>
+        <div id="roleExtra" class="role-extra"></div>
+        <div class="label roster-label">座位与公开自称</div>
+        <div id="roster" class="roster"></div>
+      </div>
+      <div class="public-box">
+        <div class="label">公开记录</div>
+        <div id="publicList"></div>
+      </div>
+    </div>
+    <div class="actions-bar">
+      <div class="req-phase" id="reqPhase"></div>
+      <div id="actions" class="actions"></div>
+    </div>
+  </div>
+</div>
+
+<div id="rules" class="modal" hidden>
+  <div class="modal-card wide rule-card">
+    <h1>规 则</h1>
+    <p>7 人：狼人 2、平民 2、女巫 1、预言家 1、猎人 1。</p>
+    <p>夜晚：狼人 → 女巫 → 预言家。女巫解药/毒药各一瓶，同夜只用一瓶，不能自救。</p>
+    <p>白天：按顺序发言，只有三种：沉默 / 我是 X / 我认为 X 是 Y。</p>
+    <p>发言后投票，可以弃票；平票无人出局。</p>
+    <p>猎人被刀或被票出可以开枪；被毒死不能开枪。</p>
+    <p>胜负：狼人全灭好人胜；狼人存活数 ≥ 好人存活数 狼人胜。</p>
+    <button class="btn primary" id="rulesClose">知 道 了</button>
+  </div>
+</div>
+
+<div id="result" class="modal" hidden>
+  <div class="modal-card">
+    <h1 id="resultTitle"></h1>
+    <p id="resultReason"></p>
+    <div id="roleList" class="role-list"></div>
+    <div class="modal-actions">
+      <button class="btn primary" id="againBtn">再 来 一 局</button>
+      <button class="btn ghost" id="menuBtn">返 回</button>
+      <a class="btn ghost" id="downloadRecord" download>下载本局记录</a>
+    </div>
+  </div>
+</div>
+
+<div id="quitModal" class="modal" hidden>
+  <div class="modal-card">
+    <h1>退出本局？</h1>
+    <p>本局会保存为“未完成”记录，已经发生的发言和夜晚步骤不会丢。</p>
+    <div class="modal-actions">
+      <button class="btn primary" id="quitCancel">继续玩</button>
+      <button class="btn danger" id="quitConfirm">退出并保存</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast" hidden></div>
+<audio id="bgm" src="/assets/bgm_werewolf.wav" preload="auto"></audio>
+<script src="/static/music.js"></script>
+<script src="/static/ach_popup.js"></script>
+<script src="/static/werewolf.js"></script>
+</body>
+</html>

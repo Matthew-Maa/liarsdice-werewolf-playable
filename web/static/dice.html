@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>吹牛骰子 · 桌上见真章</title>
+<link rel="stylesheet" href="/static/app.css">
+<link rel="stylesheet" href="/static/dice.css">
+</head>
+<body>
+<div class="backdrop"></div>
+<div class="topbar">
+  <a class="brand" href="/">吹牛骰子</a>
+  <div class="sub" id="modeLabel">人机对战</div>
+  <div class="spacer"></div>
+  <button class="icon-btn" id="quitBtn" hidden>退出本局</button>
+  <button class="icon-btn" id="rulesBtn">规则</button>
+  <button class="icon-btn" id="musicBtn">音乐 开</button>
+</div>
+
+<div id="setup" class="screen">
+  <div class="center setup">
+    <h1 class="hero-title" style="font-size:56px">选 一 个 对 手</h1>
+    <input id="playerName" class="name-input" maxlength="10" value="你" aria-label="你的名字">
+    <div id="oppCards" class="opp-cards"></div>
+    <div class="setup-actions">
+      <button class="btn ghost" id="backHome">返回</button>
+      <button class="btn ghost" id="aiMode">AI 内战旁观</button>
+      <button class="btn primary" id="startBtn" disabled>开始</button>
+    </div>
+  </div>
+</div>
+
+<div id="game" class="game-wrap" hidden>
+  <div class="felt">
+    <div class="opponent">
+      <img id="oppImg" class="avatar big" alt="">
+      <div class="opp-name" id="oppName"></div>
+      <div class="opp-style" id="oppStyle"></div>
+      <div class="dice-row backs" id="oppDice"></div>
+    </div>
+    <div class="bid-card">
+      <div class="bid-text" id="bidText">还没有人叫牌</div>
+      <div class="thinking" id="thinking" hidden>对手正在想……</div>
+    </div>
+    <div class="player">
+      <div class="player-name" id="meName">你</div>
+      <div class="dice-row own" id="myDice"></div>
+    </div>
+    <aside class="history card">
+      <h3>叫牌记录</h3>
+      <div id="log"></div>
+    </aside>
+    <div id="controls" class="controls" hidden>
+      <button class="btn danger" id="openBtn">开 盅</button>
+      <div class="stepper">
+        <button class="btn ghost sq" id="qMinus">−</button>
+        <div class="qty" id="qtyText">3 个</div>
+        <button class="btn ghost sq" id="qPlus">+</button>
+      </div>
+      <div class="faces" id="faces"></div>
+      <button class="btn primary" id="callBtn">加 叫</button>
+    </div>
+    <div id="spectator" class="spectator" hidden>
+      <button class="btn ghost" id="pauseBtn">暂停</button>
+      <button class="btn ghost" id="speedBtn">速度 0.5x</button>
+    </div>
+  </div>
+</div>
+
+<div id="result" class="modal" hidden>
+  <div class="modal-card">
+    <h1 id="resultTitle"></h1>
+    <p id="resultReason"></p>
+    <p id="resultBid"></p>
+    <p id="resultCount"></p>
+    <p id="wildNote" class="wild-note" hidden>1 = 百搭（本局有效）</p>
+    <div class="result-dice">
+      <div><span>你的骰子</span><div id="resMine" class="dice-row"></div></div>
+      <div><span>对手骰子</span><div id="resOpp" class="dice-row"></div></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn primary" id="againBtn">再 来 一 局</button>
+      <button class="btn ghost" id="changeBtn">换 对 手</button>
+      <a class="btn ghost" id="downloadRecord" download>下载本局记录</a>
+    </div>
+  </div>
+</div>
+
+<div id="quitModal" class="modal" hidden>
+  <div class="modal-card">
+    <h1>退出本局？</h1>
+    <p>本局会保存为“未完成”记录，已经下过的步骤不会丢。</p>
+    <div class="modal-actions">
+      <button class="btn primary" id="quitCancel">继续玩</button>
+      <button class="btn danger" id="quitConfirm">退出并保存</button>
+    </div>
+  </div>
+</div>
+
+<div id="rules" class="modal" hidden>
+  <div class="modal-card rule-card">
+    <h1>规 则</h1>
+    <p>每人 5 颗骰子。<b class="wild">1 是百搭</b>，可以当作任意点数。</p>
+    <p><b class="wild">叫过 1 之后，本局百搭失效</b>：1 只能算 1。</p>
+    <p>叫牌：数量要比上家多，或数量相同但点数更大；先手第一手至少 3 个。</p>
+    <p>觉得上家在吹，就“开盅”。按全部 10 颗骰子里目标点数的实际数量判定；数量够叫牌，叫牌者赢，否则开盅者赢。</p>
+    <button class="btn primary" id="rulesClose">知 道 了</button>
+  </div>
+</div>
+
+<div id="toast" class="toast" hidden></div>
+<audio id="bgm" src="/assets/bgm_dice.mp3" preload="auto"></audio>
+<script src="/static/music.js"></script>
+<script src="/static/ach_popup.js"></script>
+<script src="/static/dice.js"></script>
+</body>
+</html>

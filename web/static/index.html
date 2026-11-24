@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>对外游戏 · 桌上见真章</title>
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body class="home">
+<div class="backdrop"></div>
+<div class="topbar">
+  <div class="brand">对外游戏</div>
+  <div class="spacer"></div>
+  <button class="icon-btn" id="settingsBtn">设置</button>
+  <button class="icon-btn" id="accountBtn">登录</button>
+  <a class="icon-btn" href="/dice/">吹牛骰子</a>
+  <a class="icon-btn" href="/werewolf/">狼人杀</a>
+</div>
+<div class="screen">
+  <div class="center">
+    <h1 class="hero-title">桌 上 见 真 章</h1>
+    <div class="cards">
+      <a class="game-card" href="/dice/">
+        <img src="/assets/bg_casino.jpg" alt="">
+        <div class="txt">
+          <h2>吹 牛 骰 子</h2>
+          <div class="btn primary" style="margin-top:18px">开始游戏</div>
+        </div>
+      </a>
+      <a class="game-card" href="/werewolf/">
+        <img src="/assets/portrait_5.jpg" alt="">
+        <div class="txt">
+          <h2>狼 人 杀</h2>
+          <div class="btn primary" style="margin-top:18px">开始游戏</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div id="accountModal" class="acct-modal" hidden>
+  <div class="acct-card">
+    <button class="acct-close" id="acctClose">×</button>
+    <h1>我的账号</h1>
+    <div id="acctGuest">
+      <div class="acct-tabs">
+        <button class="acct-tab on" data-tab="login">登录</button>
+        <button class="acct-tab" data-tab="reg">注册</button>
+      </div>
+      <input id="acctUser" placeholder="用户名（2~20 位）" autocomplete="username">
+      <input id="acctPass" type="password" placeholder="密码（至少 6 位）" autocomplete="current-password">
+      <input id="acctNick" placeholder="昵称（可选）" hidden>
+      <button class="btn primary" id="acctSubmit">登 录</button>
+      <p class="acct-msg" id="acctMsg"></p>
+      <p class="acct-note">不登录也能玩；登录后对局记录和成就会归到这个账号。记录只存本机。</p>
+    </div>
+    <div id="acctPanel" hidden>
+      <h2 id="acctHello"></h2>
+      <div class="acct-stats" id="acctStats"></div>
+      <div class="acct-section">
+        <h3>最近对局</h3>
+        <div id="acctHistory" class="acct-history"></div>
+      </div>
+      <div class="acct-section">
+        <h3>成就</h3>
+        <div id="acctAch" class="acct-ach"></div>
+      </div>
+      <a class="btn ghost" id="acctExport" href="/api/export" download>导出我的记录</a>
+      <button class="btn ghost" id="acctLogout">退出登录</button>
+    </div>
+  </div>
+</div>
+
+<div id="settingsModal" class="acct-modal" hidden>
+  <div class="acct-card">
+    <button class="acct-close" id="settingsClose">×</button>
+    <h1>设置</h1>
+    <div class="acct-section">
+      <h3>音乐</h3>
+      <label class="set-row"><input type="checkbox" id="setMusicOn"> 背景音乐</label>
+      <label class="set-row">音量 <input type="range" id="setVolume" min="0" max="100" step="1"></label>
+      <div class="set-row set-modes">
+        <label><input type="radio" name="setMode" value="list"> 列表自动切歌</label>
+        <label><input type="radio" name="setMode" value="single"> 单曲循环</label>
+      </div>
+      <div id="setTracks" class="track-list"></div>
+    </div>
+    <div class="acct-section">
+      <h3>记录</h3>
+      <label class="set-row"><input type="checkbox" id="setAutoDl"> 结算时自动下载本局记录</label>
+      <div id="clearSection" hidden>
+        <button class="btn danger" id="clearRecords">清空记录…</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="clearModal" class="acct-modal" hidden>
+  <div class="acct-card">
+    <h1>清空记录？</h1>
+    <p>会清空本机的对局记录、账号历史和成就。清空后不可恢复；备份会把原数据打包到本机备份文件夹。</p>
+    <div class="clear-actions">
+      <button class="btn ghost" id="clearNo">否</button>
+      <button class="btn danger" id="clearDirect">直接清空</button>
+      <button class="btn primary" id="clearBackup">备份后清空</button>
+    </div>
+    <p id="clearMsg" class="acct-msg"></p>
+  </div>
+</div>
+
+<audio id="bgm" preload="auto"></audio>
+<script src="/static/music.js"></script>
+<script src="/static/settings.js"></script>
+<script src="/static/account.js"></script>
+</body>
+</html>
